@@ -9,13 +9,7 @@ public class urinals {
     public static void main(String[] args){
 
     }
-    //check to see good String
-    Boolean goodString(String str){
-        return true;
-    }
 
-    int getCountOfUrinals(String s) {
-        return 0;
-    }
+
 
 }

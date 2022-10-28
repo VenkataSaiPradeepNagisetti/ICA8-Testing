@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class urinalsTest {
-    private urinals urinal;
+    private countUrinals urinal;
 
     @BeforeEach
     public void setUrinal() {
@@ -104,6 +104,38 @@ public class urinalsTest {
         assertThrows(IOException.class, () -> {
            urinal.readingFile(path);
         });
+    }
+
+    //tests for writing file
+    @Test
+    void writingFileOne() {
+        System.out.println("TEST ONE writingFile File is duplicate EXECUTED");
+        urinal.writingFile(1, new int[]{1, 2, 3});
+        assertThrows(Exception.class, () -> {
+            urinal.writingFile(1, new int[]{1, 2, 3});
+        });
+    }
+
+    @Test
+    void writingFileTwo() {
+        System.out.println("TEST TWO writingFile Bad File Name EXECUTED");
+        assertThrows(Exception.class, () -> {
+            urinal.writingFile(-1, new int[]{1, 2, 3});
+        });
+    }
+
+    @Test
+    void writingFileThree() {
+        System.out.println("TEST THREE writingFile IOException EXECUTED");
+        assertThrows(Exception.class, () -> {
+            urinal.writingFile(0, new int[]{1, 2, 3});
+        });
+    }
+
+    @Test
+    void writingFileFour() {
+        System.out.println("TEST FOUR writingFile Valid case EXECUTED");
+        urinal.writingFile(0, new int[]{1, 2, 3});
     }
 
 }
