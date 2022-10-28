@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class urinalsTest {
@@ -13,19 +12,19 @@ public class urinalsTest {
 
     @BeforeEach
     public void setUrinal() {
-        urinal = new urinals();
+        urinal = new countUrinals();
     }
 
     //tests for goodString
     @Test
     void goodStringOne() {
-        System.out.println("TEST ONE goodString EXECUTED"));
+        System.out.println("TEST ONE goodString EXECUTED");
         assertEquals(true, urinal.goodString("101010"));
     }
 
     @Test
     void goodStringTwo() {
-        System.out.println("TEST TWO goodString EXECUTED"));
+        System.out.println("TEST TWO goodString EXECUTED");
         assertEquals(false, urinal.goodString(""));
     }
 
@@ -37,7 +36,9 @@ public class urinalsTest {
         });
     }
 
-    // tests for getCountOfUrinals
+    /**
+     * Getting count of free urinals Tests
+     */
     @Test
     void getCountOfUrinalsOne() {
         System.out.println("TEST ONE getCountOfUrinals EXECUTED");
@@ -73,69 +74,60 @@ public class urinalsTest {
         assertEquals(-1, urinal.getCountOfUrinals("011"));
     }
 
-    //tests for readingFile
+    /**
+     * Tests for reading file
+     */
     @Test
-    void readingFileOne() {
-        System.out.println("TEST ONE readingFile Valid case EXECUTED");
-        String path = "urinal.dat"
-        assertEquals(new String[]{"10001","1001","00000","0000","01000","011"}, urinal.readingFile(path));
+    void readingFileOne() throws IOException {
+        System.out.println("TEST ONE readingFile Valid Case EXECUTED");
+        String path = "src/urinal.dat";
+        assertArrayEquals(new String[]{"10001", "1001", "00000", "0000", "01000", "011"}, urinal.readingFile(path));
     }
 
     @Test
-    void readingFileTwo() {
+    void readFromFileTwo() {
         System.out.println("TEST TWO readingFile File does not exist EXECUTED");
-        String path = "urinal.datx"
+        String path = "urinal.dat1";
         assertThrows(FileNotFoundException.class, () -> {
-          urinal.readingFile(path);
+            urinal.readingFile(path);
         });
     }
 
     @Test
-    void readingFileThree() {
-        System.out.println("TEST THREE readingFile Empty file EXECUTED");
-        String path = "urinal.dat"
-        assertEquals(new String[]{}, urinal.readingFile(path));
+    void readFromFileThree() throws IOException {
+        System.out.println("TEST THREE readingFile Empty file Case EXECUTED");
+        String path = "src/urinal.dat";
+        String [] in = urinal.readingFile(path);
+        assertArrayEquals(in, urinal.readingFile(path));
     }
 
     @Test
-    void readingFileFour() {
-        System.out.println("TEST FOUR readingFile  IOException EXECUTED");
-        String path = "urine"
+    void readFromFileFour() {
+        System.out.println("TEST FOUR readingFile Valid Case EXECUTED");
+        String path = "urinal";
         assertThrows(IOException.class, () -> {
-           urinal.readingFile(path);
+            urinal.readingFile(path);
         });
     }
 
-    //tests for writing file
+    /**
+     * Tests for writing file
+     */
     @Test
-    void writingFileOne() {
-        System.out.println("TEST ONE writingFile File is duplicate EXECUTED");
-        urinal.writingFile(1, new int[]{1, 2, 3});
+    void writingFile() {
+        System.out.println("TEST ONE writingFile EXECUTED - Exception case");
         assertThrows(Exception.class, () -> {
-            urinal.writingFile(1, new int[]{1, 2, 3});
+            urinal.writingFile(new String[]{"abc", "1001", "00000", "0000", "01000", "011"});
         });
     }
 
     @Test
-    void writingFileTwo() {
-        System.out.println("TEST TWO writingFile Bad File Name EXECUTED");
-        assertThrows(Exception.class, () -> {
-            urinal.writingFile(-1, new int[]{1, 2, 3});
-        });
+    void writeToFileTwo() throws IOException {
+        System.out.println("TEST TWO writingFile EXECUTED - Valid case");
+        // does not throw any error
+        urinal.writingFile(new String[]{"10001", "1001", "00000", "0000", "01000", "011"});
     }
 
-    @Test
-    void writingFileThree() {
-        System.out.println("TEST THREE writingFile IOException EXECUTED");
-        assertThrows(Exception.class, () -> {
-            urinal.writingFile(0, new int[]{1, 2, 3});
-        });
-    }
 
-    @Test
-    void writingFileFour() {
-        System.out.println("TEST FOUR writingFile Valid case EXECUTED");
-        urinal.writingFile(0, new int[]{1, 2, 3});
-    }
 
 }
