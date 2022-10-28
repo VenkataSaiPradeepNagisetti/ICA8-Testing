@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -13,6 +16,7 @@ public class urinalsTest {
         urinal = new urinals();
     }
 
+    //tests for goodString
     @Test
     void goodStringOne() {
         System.out.println("TEST ONE goodString EXECUTED"));
@@ -33,6 +37,7 @@ public class urinalsTest {
         });
     }
 
+    // tests for getCountOfUrinals
     @Test
     void getCountOfUrinalsOne() {
         System.out.println("TEST ONE getCountOfUrinals EXECUTED");
@@ -68,5 +73,37 @@ public class urinalsTest {
         assertEquals(-1, urinal.getCountOfUrinals("011"));
     }
 
+    //tests for readingFile
+    @Test
+    void readingFileOne() {
+        System.out.println("TEST ONE readingFile Valid case EXECUTED");
+        String path = "urinal.dat"
+        assertEquals(new String[]{"10001","1001","00000","0000","01000","011"}, urinal.readingFile(path));
+    }
+
+    @Test
+    void readingFileTwo() {
+        System.out.println("TEST TWO readingFile File does not exist EXECUTED");
+        String path = "urinal.datx"
+        assertThrows(FileNotFoundException.class, () -> {
+          urinal.readingFile(path);
+        });
+    }
+
+    @Test
+    void readingFileThree() {
+        System.out.println("TEST THREE readingFile Empty file EXECUTED");
+        String path = "urinal.dat"
+        assertEquals(new String[]{}, urinal.readingFile(path));
+    }
+
+    @Test
+    void readingFileFour() {
+        System.out.println("TEST FOUR readingFile  IOException EXECUTED");
+        String path = "urine"
+        assertThrows(IOException.class, () -> {
+           urinal.readingFile(path);
+        });
+    }
 
 }
