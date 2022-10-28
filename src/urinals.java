@@ -14,5 +14,8 @@ public class urinals {
         return true;
     }
 
+    int getCountOfUrinals(String s) {
+        return 0;
+    }
 
 }

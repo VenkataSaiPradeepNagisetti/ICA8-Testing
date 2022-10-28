@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class urinalsTest {
@@ -14,11 +15,21 @@ public class urinalsTest {
 
     @Test
     void goodStringOne() {
-        assertEquals(true, urinal.goodString("======== Venkata Sai Pradeep Nagisetti == TEST ONE EXECUTED ======="));
+        System.out.println("TEST ONE goodString EXECUTED"));
+        assertEquals(true, urinal.goodString("101010"));
     }
 
     @Test
     void goodStringTwo() {
-        assertEquals(false, urinal.goodString("======== Venkata Sai Pradeep Nagisetti == TEST TWO EXECUTED ======="));
+        System.out.println("TEST TWO goodString EXECUTED"));
+        assertEquals(false, urinal.goodString(""));
+    }
+
+    @Test
+    void goodStringThree() {
+        System.out.println("TEST THREE goodString EXECUTED");
+        assertThrows(NumberFormatException.class, () -> {
+            urinal.goodString("XYZ");
+        });
     }
 }
